@@ -68,8 +68,138 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-using namespace std;
 
+
+using namespace std;
+double add(double num1, double num2);
+double subtract(double num1, double num2);
+double multiply(double num1, double num2);
+double divide(double num1, double num2);
+int calculateModulus(int num1, int num2);
+double power(double base, double exponent);
+
+int main() {
+    int choice;
+    double num1, num2;
+
+    do {
+        cout << "\n============================\n";
+        cout << "      SIMPLE CALCULATOR\n";
+        cout << "============================\n";
+        cout << " 1. Addition\n";
+        cout << " 2. Subtraction\n";
+        cout << " 3. Multiplication\n";
+        cout << " 4. Division\n";
+        cout << " 5. Modulus\n";
+        cout << " 6. Exponentiation\n";
+        cout << " 7. Quit\n";
+        cout << " Select an operation (1-7): ";
+        cin >> choice;
+
+        if (choice == 7) {
+            cout << " Goodbye!\n";
+            break;
+        }
+
+       
+        if (choice < 1 || choice > 7) {
+            cout << " Error: Invalid choice. Please select an option between 1 and 7.\n";
+            continue;
+        }
+
+        
+        cout << fixed << setprecision(2);
+
+        
+        switch (choice) {
+            case 1:
+                cout << " Enter first number : ";
+                cin >> num1;
+                cout << " Enter second number: ";
+                cin >> num2;
+                cout << " Result: " << num1 << " + " << num2 << " = " << add(num1, num2) << endl;
+                break;
+
+            case 2:
+                cout << " Enter first number : ";
+                cin >> num1;
+                cout << " Enter second number: ";
+                cin >> num2;
+                cout << " Result: " << num1 << " - " << num2 << " = " << subtract(num1, num2) << endl;
+                break;
+
+            case 3:
+                cout << " Enter first number : ";
+                cin >> num1;
+                cout << " Enter second number: ";
+                cin >> num2;
+                cout << " Result: " << num1 << " * " << num2 << " = " << multiply(num1, num2) << endl;
+                break;
+
+            case 4:
+                cout << " Enter first number : ";
+                cin >> num1;
+                cout << " Enter second number: ";
+                cin >> num2;
+                if (num2 == 0) {
+                    cout << " Error: Cannot divide by zero.\n";
+                } else {
+                    cout << " Result: " << num1 << " / " << num2 << " = " << divide(num1, num2) << endl;
+                }
+                break;
+
+            case 5: {
+                int int1, int2;
+                cout << " Enter first number : ";
+                cin >> int1;
+                cout << " Enter second number: ";
+                cin >> int2;
+                if (int2 == 0) {
+                    cout << " Error: Cannot divide by zero.\n";
+                } else {
+                    cout << " Result: " << int1 << " % " << int2 << " = " << calculateModulus(int1, int2) << endl;
+                }
+                break;
+            }
+
+            case 6:
+                cout << " Enter first number : ";
+                cin >> num1;
+                cout << " Enter second number: ";
+                cin >> num2;
+                cout << " Result: " << num1 << " ^ " << num2 << " = " << power(num1, num2) << endl;
+                break;
+        }
+
+    } while (choice != 7);
+
+    return 0;
+}
+
+double add(double num1, double num2) {
+    return num1 + num2;
+}
+
+double subtract(double num1, double num2) {
+    return num1 - num2;
+}
+
+double multiply(double num1, double num2) {
+    return num1 * num2;
+}
+
+double divide(double num1, double num2) {
+    return num1 / num2;
+}
+
+int calculateModulus(int num1, int num2) {
+    return num1 % num2;
+}
+
+double power(double base, double exponent) {
+    return pow(base, exponent);
+}

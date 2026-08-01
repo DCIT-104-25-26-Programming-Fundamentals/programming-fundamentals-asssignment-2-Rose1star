@@ -81,5 +81,147 @@
 #include <vector>
 #include <string>
 #include <iomanip>
-using namespace std;
+#include <numeric>
+
+struct Student {
+    std::string name;
+    int id;
+    std::vector<double> scores;
+};
+
+std::vector<Student> students;
+
+
+double calculate_average(const std::vector<double>& scores) {
+    if (scores.empty()) return 0.0;
+    double sum = 0;
+    for (double score : scores) {
+        sum += score;
+    }
+    return sum / scores.size();
+}
+
+void add_student() {
+    Student new_student;
+
+    std::cout << "Student name: ";
+    std::cin.ignore(); 
+    std::getline(std::cin, new_student.name);
+
+    std::cout << "Student ID: ";
+    std::cin >> new_student.id;
+
+    int num_scores;
+    std::cout << "How many scores? ";
+    std::cin >> num_scores;
+
+    for (int i = 1; i <= num_scores; ++i) {
+        double score;
+        std::cout << "Enter score " << i << ": ";
+        std::cin >> score;
+        new_student.scores.push_back(score);
+    }
+
+    students.push_back(new_student);
+    std::cout << "Student \"" << new_student.name << "\" added successfully.\n";
+}
+
+
+void display_all_students() {
+    if (students.empty()) {
+        std::cout << "No student records available.\n";
+        return;
+    }
+
+    std::cout << "--------------------------------------------------\n";
+    std::cout << std::left 
+              << std::setw(15) << "Name"
+              << std::setw(12) << "ID"
+              << std::setw(15) << "Scores"
+              << std::setw(8)  << "Average" << "\n";
+    std::cout << "--------------------------------------------------\n";
+
+    std::cout << std::fixed << std::setprecision(2);
+
+    for (const auto& student : students) {
+        std::string scores_str = "";
+        for (size_t i = 0; i < student.scores.size(); ++i) {
+            scores_str += std::to_string(static_cast<int>(student.scores[i]));
+            if (i < student.scores.size() - 1) {
+                scores_str += ", ";
+            }
+        }
+
+        double avg = calculate_average(student.scores);
+
+        std::cout << std::left 
+                  << std::setw(15) << student.name
+                  << std::setw(12) << student.id
+                  << std::setw(15) << scores_str
+                  << std::setw(8)  << avg << "\n";
+    }
+
+    std::cout << "--------------------------------------------------\n";
+}
+
+
+void calculate_student_average() {
+    int target_id;
+    std::cout << "Enter student ID: ";
+    std::cin >> target_id;
+
+    for (const auto& student : students) {
+        if (student.id == target_id) {
+            double avg = calculate_average(student.scores);
+            std::cout << std::fixed << std::setprecision(2);
+            std::cout << student.name << "'s average score: " << avg << "\n";
+            return;
+        }
+    }
+
+    std::cout << "Error: Student ID " << target_id << " not found.\n";
+}
+
+int main() {
+    int choice = 0;
+
+    while (choice != 4) {
+        std::cout << "\n================================\n";
+        std::cout << "   STUDENT RECORD SYSTEM MENU   \n";
+        std::cout << "================================\n";
+        std::cout << "1. Add student\n";
+        std::cout << "2. Display all students\n";
+        std::cout << "3. Calculate average score\n";
+        std::cout << "4. Quit\n";
+        std::cout << "Enter your choice (1-4): ";
+
+        if (!(std::cin >> choice)) {
+    
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Invalid choice! Please enter a number between 1 and 4.\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                add_student();
+                break;
+            case 2:
+                display_all_students();
+                break;
+            case 3:
+                calculate_student_average();
+                break;
+            case 4:
+                std::cout << "Goodbye!\n";
+                break;
+            default:
+                std::cout << "Invalid choice! Please enter a number between 1 and 4.\n";
+                break;
+        }
+    }
+
+    return 0;
+}
 

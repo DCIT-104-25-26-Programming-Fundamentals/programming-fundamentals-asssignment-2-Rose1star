@@ -78,5 +78,104 @@
 #include <iostream>
 #include <vector>
 #include <string>
+
 using namespace std;
+
+// Function prototypes
+void addTask(vector<string>& tasks);
+void viewTasks(const vector<string>& tasks);
+void deleteTask(vector<string>& tasks);
+
+int main() {
+    vector<string> tasks;
+    int choice = 0;
+
+    do {
+        // Display Menu
+        cout << "\n============================\n";
+        cout << "       TO-DO LIST MENU\n";
+        cout << "============================\n";
+        cout << " 1. Add task\n";
+        cout << " 2. View tasks\n";
+        cout << " 3. Delete task\n";
+        cout << " 4. Quit\n";
+        cout << " Enter your choice (1-4): ";
+        
+        cin >> choice;
+
+        // Handle menu options using switch statement
+        switch (choice) {
+            case 1:
+                addTask(tasks);
+                break;
+            case 2:
+                viewTasks(tasks);
+                break;
+            case 3:
+                deleteTask(tasks);
+                break;
+            case 4:
+                cout << " Goodbye!\n";
+                break;
+            default:
+                cout << " Error: Invalid choice. Please select an option between 1 and 4.\n";
+                break;
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+
+
+
+void addTask(vector<string>& tasks) {
+    string task;
+    cout << " Enter task: ";
+    
+    cin.ignore();
+    
+    getline(cin, task);
+    
+    tasks.push_back(task);
+    cout << " Task added: \"" << task << "\"\n";
+}
+
+
+void viewTasks(const vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << " Your to-do list is empty!\n";
+        return;
+    }
+
+    cout << " Your Tasks:\n";
+    for (size_t i = 0; i < tasks.size(); ++i) {
+        cout << " " << (i + 1) << ". " << tasks[i] << "\n";
+    }
+}
+
+void deleteTask(vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << " Your to-do list is empty! Nothing to delete.\n";
+        return;
+    }
+
+    int taskNumber;
+    cout << " Enter task number to delete: ";
+    cin >> taskNumber;
+
+
+    if (taskNumber < 1 || taskNumber > static_cast<int>(tasks.size())) {
+        cout << " Error: Invalid task number.\n";
+    } else {
+        
+        int index = taskNumber - 1;
+        string removedTask = tasks[index];
+        
+    
+        tasks.erase(tasks.begin() + index);
+        
+        cout << " Task \"" << removedTask << "\" has been removed.\n";
+    }
+}
 
