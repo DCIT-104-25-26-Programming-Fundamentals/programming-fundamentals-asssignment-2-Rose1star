@@ -43,6 +43,54 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
+
 using namespace std;
 
+// Function prototype
+char getGrade(double score);
+
+int main() {
+    double score;
+
+    cout << "=========================================\n";
+    cout << "          STUDENT GRADE SYSTEM           \n";
+    cout << "=========================================\n\n";
+
+    cout << "Enter student score (0-100): ";
+    cin >> score;
+
+    char grade = getGrade(score);
+
+    // If getGrade returned '\0', the score was out of range
+    if (grade == '\0') {
+        cout << "Error: Score must be between 0 and 100.\n";
+    } else {
+        cout << "Grade: " << grade << endl;
+    }
+
+    return 0;
+}
+
+// -----------------------------------------------------------------------------
+// FUNCTION DEFINITION
+// -----------------------------------------------------------------------------
+
+// Validates input range and returns the corresponding letter grade.
+// Returns '\0' (null character) if the score is invalid (< 0 or > 100).
+char getGrade(double score) {
+    if (score < 0 || score > 100) {
+        return '\0'; // Return null character for out-of-range input
+    } else if (score >= 80) {
+        return 'A';
+    } else if (score >= 70) {
+        return 'B';
+    } else if (score >= 60) {
+        return 'C';
+    } else if (score >= 50) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}
