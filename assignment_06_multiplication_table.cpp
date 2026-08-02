@@ -55,5 +55,72 @@
 // =============================================================================
 
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
+// Function prototypes
+void printSingleTable(int num);
+void printTablesUpToN(int n);
+
+int main() {
+    int singleNum, maxN;
+
+    cout << "=========================================\n";
+    cout << "     MULTIPLICATION TABLE GENERATOR      \n";
+    cout << "=========================================\n\n";
+
+    // -------------------------------------------------------------------------
+    // PART A — Single Table
+    // -------------------------------------------------------------------------
+    cout << "--- PART A: Single Multiplication Table ---\n";
+    cout << "Enter a number: ";
+    cin >> singleNum;
+
+    if (singleNum <= 0) {
+        cout << "Error: Please enter a positive integer.\n";
+    } else {
+        printSingleTable(singleNum);
+    }
+
+    cout << "\n-----------------------------------------\n\n";
+
+    // -------------------------------------------------------------------------
+    // PART B — Tables from 1 to N
+    // -------------------------------------------------------------------------
+    cout << "--- PART B: Tables from 1 to N ---\n";
+    cout << "Enter a number N: ";
+    cin >> maxN;
+
+    if (maxN <= 0) {
+        cout << "Error: Please enter a positive integer.\n";
+    } else {
+        printTablesUpToN(maxN);
+    }
+
+    return 0;
+}
+
+// -----------------------------------------------------------------------------
+// FUNCTION DEFINITIONS
+// -----------------------------------------------------------------------------
+
+// Part A: Generates and displays the multiplication table for a single number (1 to 12)
+void printSingleTable(int num) {
+    cout << "\nMultiplication Table for " << num << ":\n";
+    for (int i = 1; i <= 12; ++i) {
+        cout << setw(2) << num << "  x  " 
+             << setw(2) << i << "  =  " 
+             << setw(3) << (num * i) << "\n";
+    }
+}
+
+// Part B: Prints full multiplication tables for every number from 1 to N
+void printTablesUpToN(int n) {
+    for (int i = 1; i <= n; ++i) {
+        printSingleTable(i);
+        if (i < n) {
+            cout << "---------------------------\n";
+        }
+    }
+}
